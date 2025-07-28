@@ -13,7 +13,6 @@ class DashboardTest {
 
     @BeforeEach
     void setUp() {
-        SQLHelper.cleanDatabase();
         loginPage = open("http://localhost:9999", LoginPage.class);
     }
 
@@ -22,5 +21,10 @@ class DashboardTest {
         var verificationPage = loginPage.validLogin(authInfo);
         var verificationCode = SQLHelper.getVerificationCode();
         verificationPage.validVerify(verificationCode.getCode());
+    }
+
+    @AfterAll
+    static void tearDownAll() {
+        SQLHelper.cleanDatabase();
     }
 }
